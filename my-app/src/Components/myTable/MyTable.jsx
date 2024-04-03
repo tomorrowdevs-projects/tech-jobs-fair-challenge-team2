@@ -73,11 +73,67 @@ const MyTable = () => {
 			link: "https://www.francobat.com",
 			tipo: "Partner",
 		},
+		{
+			id: 8,
+			nome: "Snoop",
+			cognome: "Dogg",
+			email: "snoopdogg@gmail.com",
+			telefono: "02415792",
+			azienda: "Leafs By Snoop",
+			link: "https://www.snoop.com",
+			tipo: "Cliente",
+		},
+		{
+			id: 9,
+			nome: "Salvador",
+			cognome: "Dalì",
+			email: "salvador@gmail.com",
+			telefono: "6724451",
+			azienda: "Surrealism",
+			link: "https://www.francobat.com",
+			tipo: "Cliente",
+		},
+		{
+			id: 10,
+			nome: "Jhon",
+			cognome: "Rambo",
+			email: "rambone@gmail.com",
+			telefono: "67245361",
+			azienda: "Tech Solutions Inc.",
+			link: "https://www.francobat.com",
+			tipo: "Dipendente",
+		},
 	]);
+
+	const [searchTerm, setSearchTerm] = useState("");
+
+	const filteredContacts = contacts.filter(
+		contact =>
+			contact.nome.toLowerCase().includes(searchTerm.toLowerCase()) ||
+			contact.cognome.toLowerCase().includes(searchTerm.toLowerCase()) ||
+			contact.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
+			contact.telefono.includes(searchTerm) ||
+			contact.azienda.toLowerCase().includes(searchTerm.toLowerCase()) ||
+			contact.tipo.toLowerCase().includes(searchTerm.toLowerCase())
+	);
+
+	const handleSearchChange = event => {
+		setSearchTerm(event.target.value);
+	};
+
 	return (
 		<Container className="container-fluid">
 			<div className="d-flex justify-content-center align-items-center my-4 pt-2">
 				<h2>Rubrica telefonica aziendale</h2>
+			</div>
+			<div className="my-3">
+				<input
+					type="text"
+					placeholder="Cerca contatto..."
+					value={searchTerm}
+					onChange={handleSearchChange}
+					className="form-control"
+				/>
 			</div>
 			<div className="table-responsive">
 				<table className="table table-striped">
@@ -94,7 +150,7 @@ const MyTable = () => {
 						</tr>
 					</thead>
 					<tbody>
-						{contacts.map(contact => (
+						{filteredContacts.map(contact => (
 							<tr key={contact.id}>
 								<td>{contact.id}</td>
 								<td>{contact.nome}</td>
