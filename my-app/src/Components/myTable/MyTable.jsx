@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Container } from "react-bootstrap";
+import { Button, Container } from "react-bootstrap";
+import { FilePlus, Pencil, PlusSquare, Trash3 } from "react-bootstrap-icons";
 
 const MyTable = () => {
 	const [contacts, setContacts] = useState([
@@ -147,6 +148,7 @@ const MyTable = () => {
 							<th scope="col">Azienda</th>
 							<th scope="col">Link</th>
 							<th scope="col">Tipo di contatto</th>
+							<th scope="col">Azioni</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -160,6 +162,15 @@ const MyTable = () => {
 								<td>{contact.azienda}</td>
 								<td>{contact.link}</td>
 								<td>{contact.tipo}</td>
+								<Button variant="primary">
+									<PlusSquare />
+								</Button>
+								<Button variant="info">
+									<Pencil />
+								</Button>
+								<Button variant="danger">
+									<Trash3 />
+								</Button>
 							</tr>
 						))}
 					</tbody>
