@@ -31,7 +31,7 @@ export const getContatti = async () => {
 
 export const updateContatto = async (id: number, contatto: Contact) => {
 	try {
-		const { data } = await supabase.put(`/Contatti?id=eq.${id}`, contatto);
+		const { data } = await supabase.patch(`/Contatti?id=eq.${id}`, contatto);
 		return data;
 	} catch (error) {
 		console.error("Errore durante l'aggiornamento del contatto:", error);

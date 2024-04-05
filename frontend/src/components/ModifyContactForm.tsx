@@ -1,17 +1,11 @@
 import { useState } from "react";
 import { Form, Button, Container } from "react-bootstrap";
-import { createContatto } from "../api/contacts";
+import { updateContatto } from "../api/contacts";
+import { useParams } from "react-router-dom";
 
-const CreateContactForm = () => {
-  const [contatto, setContatto] = useState({
-    nome: "",
-    cognome: "",
-    email: "",
-    telefono: "",
-    azienda: "",
-    link: "",
-    tipo: "",
-  });
+const ModifyContactForm = () => {
+  const { contactId } = useParams();
+  const [contatto, setContatto] = useState({});
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -24,8 +18,8 @@ const CreateContactForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await createContatto(contatto);
-      alert("Contatto creato con successo!");
+      await updateContatto(parseInt(contactId), contatto);
+      alert("Contatto aggiornato con successo!");
     } catch (error) {
       console.error("Errore durante la creazione del contatto:", error);
       alert("Si è verificato un errore durante la creazione del contatto.");
@@ -35,7 +29,7 @@ const CreateContactForm = () => {
   return (
     <Container>
       <div className="d-flex justify-content-center align-items-center my-4 pt-2">
-        <h2>Crea nuovo contatto</h2>
+        <h2>Modifica contatto</h2>
       </div>
       <Form onSubmit={handleSubmit}>
         <Form.Group controlId="formNome">
@@ -45,7 +39,6 @@ const CreateContactForm = () => {
             name="nome"
             value={contatto.nome}
             onChange={handleChange}
-            required
           />
         </Form.Group>
 
@@ -56,17 +49,6 @@ const CreateContactForm = () => {
             name="cognome"
             value={contatto.cognome}
             onChange={handleChange}
-            required
-          />
-        </Form.Group>
-        <Form.Group controlId="formEmail">
-          <Form.Label>Email</Form.Label>
-          <Form.Control
-            type="text"
-            name="email"
-            value={contatto.email}
-            onChange={handleChange}
-            required
           />
         </Form.Group>
         <Form.Group controlId="formTelefono">
@@ -76,7 +58,6 @@ const CreateContactForm = () => {
             name="telefono"
             value={contatto.telefono}
             onChange={handleChange}
-            required
           />
         </Form.Group>
         <Form.Group controlId="formAzienda">
@@ -86,7 +67,6 @@ const CreateContactForm = () => {
             name="azienda"
             value={contatto.azienda}
             onChange={handleChange}
-            required
           />
         </Form.Group>
         <Form.Group controlId="formLink">
@@ -96,7 +76,6 @@ const CreateContactForm = () => {
             name="link"
             value={contatto.link}
             onChange={handleChange}
-            required
           />
         </Form.Group>
         <Form.Group controlId="formTipo">
@@ -106,16 +85,15 @@ const CreateContactForm = () => {
             name="tipo"
             value={contatto.tipo}
             onChange={handleChange}
-            required
           />
         </Form.Group>
 
         <Button variant="primary" type="submit" className="mt-3">
-          Crea Contatto
+          Modifica Contatto
         </Button>
       </Form>
     </Container>
   );
 };
 
-export default CreateContactForm;
+export default ModifyContactForm;

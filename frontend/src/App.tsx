@@ -5,18 +5,19 @@ import CreateContactForm from "./components/CreateContactForm";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
+import ModifyContactForm from "./components/ModifyContactForm";
 function App() {
-	return (
-		<BrowserRouter>
-			<Header />
+  return (
+    <BrowserRouter>
+      <Header />
 
-			<Routes>
-				<Route path="/" element={<ContactsTable />} />
-				<Route path="/nuova" element={<CreateContactForm />} />
-				<Route path="/modifica" element={<h1>modifica</h1>} />
-			</Routes>
-		</BrowserRouter>
-	);
+      <Routes>
+        <Route path="/" element={<ContactsTable />} />
+        <Route path="/nuova" element={<CreateContactForm />} />
+        <Route path="/modifica/:contactId" element={<ModifyContactForm />} />
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
 export default App;
