@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Form, Button, Container } from "react-bootstrap";
-import { JournalText } from "react-bootstrap-icons";
+import { HouseFill } from "react-bootstrap-icons";
 
 import { createContatto, getContatti } from "../api/contacts";
 import { useNavigate } from "react-router-dom";
@@ -60,11 +60,14 @@ const CreateContactForm = () => {
 
 	return (
 		<Container>
-			<h2 className="p-2 m-1" onClick={gotoHome}>
-				<JournalText />
-			</h2>
-			<div className="d-flex justify-content-center align-items-center my-4 pt-2">
+			<div
+				className="d-flex justify-content-center align-items-center my-4 pt-2"
+				style={{ gap: 24 }}
+			>
 				<h2>Crea nuovo contatto</h2>
+				<button className="btn btn-outline-warning" onClick={gotoHome}>
+					<HouseFill />
+				</button>
 			</div>
 			<Form onSubmit={handleSubmit}>
 				<Form.Group controlId="formNome">

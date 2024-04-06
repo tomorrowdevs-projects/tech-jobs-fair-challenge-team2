@@ -3,6 +3,7 @@ import { Col, Container, Row } from "react-bootstrap";
 import { useContatti } from "../hooks/table.hook";
 import { deleteContatto } from "../api/contacts";
 import { useNavigate } from "react-router-dom";
+import { PlusCircleFill } from "react-bootstrap-icons";
 
 const ContactsTable = () => {
 	const { contatti } = useContatti();
@@ -23,28 +24,24 @@ const ContactsTable = () => {
 		setSearchTerm(event.target.value);
 	};
 
-	const nav = useNavigate();
-
 	const gotoEdit = contact => {
-		nav(`/modifica/${contact.id}`);
-	};
-	const handleSearchChange = event => {
-		setSearchTerm(event.target.value);
+		navigate(`/modifica/${contact.id}`);
 	};
 
 	return (
-		<Container className="container-fluid">
+		<Container>
 			<div
 				className="d-flex justify-content-center align-items-center my-4 pt-2"
 				style={{ gap: 24 }}
 			>
 				<h2>Rubrica telefonica aziendale</h2>
 				<button
+					className="btn btn-outline-success"
 					onClick={() => {
 						navigate(`/nuova`);
 					}}
 				>
-					Crea contatto
+					<PlusCircleFill />
 				</button>
 			</div>
 			<div className="my-3">
@@ -57,7 +54,7 @@ const ContactsTable = () => {
 				/>
 			</div>
 			<div className="table-responsive">
-				<table className="table table-striped w-100">
+				<table className="table table-sm table-striped w-100">
 					<thead>
 						<tr>
 							<th scope="col">#</th>
@@ -89,17 +86,18 @@ const ContactsTable = () => {
 												<div style={{ display: "flex", gap: 8 }}>
 													<button
 														type="button"
-														className="btn btn-outline-primary"
+														className="btn btn-sm btn-outline-primary"
 														aria-label={`modifica il contatto di ${contact.nome} dell'azienda ${contact.azienda}`}
 														onClick={() => {
-															navigate(`/modifica/${contact.id}`);
+															/* navigate(`/modifica/${contact.id}`); */
+															gotoEdit(contact);
 														}}
 													>
 														<i className="bi bi-pencil-fill"></i>
 													</button>
 													<button
 														type="button"
-														className="btn btn-outline-danger"
+														className="btn btn-sm btn-outline-danger"
 														aria-label={`elimina il contatto di ${contact.nome} dell'azienda ${contact.azienda}`}
 														onClick={() => deleteContatto(contact.id)}
 													>
