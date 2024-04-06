@@ -6,6 +6,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 import ModifyContactForm from "./components/ModifyContactForm";
+import Footer from "./components/Footer";
 function App() {
 	return (
 		<BrowserRouter>
@@ -16,6 +17,7 @@ function App() {
 				<Route path="/nuova" element={<CreateContactForm />} />
 				<Route path="/modifica/:contactId" element={<ModifyContactForm />} />
 			</Routes>
+			<Footer />
 		</BrowserRouter>
 	);
 }
