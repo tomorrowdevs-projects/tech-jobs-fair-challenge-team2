@@ -2,11 +2,11 @@ import { useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { useContatti } from "../hooks/table.hook";
 import { deleteContatto } from "../api/contacts";
-import Navigation from "./Navigation";
 import { useNavigate } from "react-router-dom";
 
 const ContactsTable = () => {
 	const { contatti } = useContatti();
+	const navigate = useNavigate();
 	const [searchTerm, setSearchTerm] = useState("");
 
 	const filteredContacts = contatti.filter(
@@ -28,12 +28,24 @@ const ContactsTable = () => {
 	const gotoEdit = contact => {
 		nav(`/modifica/${contact.id}`);
 	};
+	const handleSearchChange = event => {
+		setSearchTerm(event.target.value);
+	};
 
 	return (
 		<Container className="container-fluid">
-			<Navigation />
-			<div className="d-flex justify-content-center align-items-center my-4 pt-2">
+			<div
+				className="d-flex justify-content-center align-items-center my-4 pt-2"
+				style={{ gap: 24 }}
+			>
 				<h2>Rubrica telefonica aziendale</h2>
+				<button
+					onClick={() => {
+						navigate(`/nuova`);
+					}}
+				>
+					Crea contatto
+				</button>
 			</div>
 			<div className="my-3">
 				<input
@@ -74,22 +86,26 @@ const ContactsTable = () => {
 									<Container>
 										<Row>
 											<Col>
-												<button
-													onClick={() => gotoEdit(contact.id)}
-													type="button"
-													className="btn btn-outline-primary"
-													aria-label={`modifica il contatto di ${contact.nome} dell'azienda ${contact.azienda}`}
-												>
-													<i className="bi bi-pencil-fill"></i>
-												</button>
-												<button
-													type="button"
-													className="btn btn-outline-danger"
-													aria-label={`elimina il contatto di ${contact.nome} dell'azienda ${contact.azienda}`}
-													onClick={() => deleteContatto(contact.id)}
-												>
-													<i className="bi bi-trash3-fill" />
-												</button>
+												<div style={{ display: "flex", gap: 8 }}>
+													<button
+														type="button"
+														className="btn btn-outline-primary"
+														aria-label={`modifica il contatto di ${contact.nome} dell'azienda ${contact.azienda}`}
+														onClick={() => {
+															navigate(`/modifica/${contact.id}`);
+														}}
+													>
+														<i className="bi bi-pencil-fill"></i>
+													</button>
+													<button
+														type="button"
+														className="btn btn-outline-danger"
+														aria-label={`elimina il contatto di ${contact.nome} dell'azienda ${contact.azienda}`}
+														onClick={() => deleteContatto(contact.id)}
+													>
+														<i className="bi bi-trash3-fill" />
+													</button>
+												</div>
 											</Col>
 										</Row>
 									</Container>
