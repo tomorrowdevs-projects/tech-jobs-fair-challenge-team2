@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { useContatti } from "../hooks/table.hook";
 import { deleteContatto } from "../api/contacts";
+import Navigation from "./Navigation";
+import { useNavigate } from "react-router-dom";
 
 const ContactsTable = () => {
 	const { contatti } = useContatti();
@@ -21,8 +23,15 @@ const ContactsTable = () => {
 		setSearchTerm(event.target.value);
 	};
 
+	const nav = useNavigate();
+
+	const gotoEdit = contact => {
+		nav(`/modifica/${contact.id}`);
+	};
+
 	return (
 		<Container className="container-fluid">
+			<Navigation />
 			<div className="d-flex justify-content-center align-items-center my-4 pt-2">
 				<h2>Rubrica telefonica aziendale</h2>
 			</div>
@@ -66,6 +75,7 @@ const ContactsTable = () => {
 										<Row>
 											<Col>
 												<button
+													onClick={() => gotoEdit(contact.id)}
 													type="button"
 													className="btn btn-outline-primary"
 													aria-label={`modifica il contatto di ${contact.nome} dell'azienda ${contact.azienda}`}

@@ -1,6 +1,9 @@
 import { useState } from "react";
 import { Form, Button, Container } from "react-bootstrap";
-import { createContatto } from "../api/contacts";
+import { JournalText } from "react-bootstrap-icons";
+
+import { createContatto, getContatti } from "../api/contacts";
+import { useNavigate } from "react-router-dom";
 
 const CreateContactForm = () => {
 	const [contatto, setContatto] = useState({
@@ -24,16 +27,42 @@ const CreateContactForm = () => {
 	const handleSubmit = async e => {
 		e.preventDefault();
 		try {
-			await createContatto(contatto);
-			alert("Contatto creato con successo!");
+			const contatti = await getContatti();
+			const emailAlreadyExists = contatti.some(
+				contact => contact.email === contatto.email
+			);
+
+			if (emailAlreadyExists) {
+				alert(
+					"L'email inserita è già associata a un altro contatto. Si prega di inserire un'email diversa."
+				);
+				return;
+			}
+			const result = await createContatto(contatto);
+			console.log(result);
+
+			if (result) {
+				alert("Contatto creato con successo!");
+			} else {
+				alert("Si è verificato un errore durante la creazione del contatto.");
+			}
 		} catch (error) {
 			console.error("Errore durante la creazione del contatto:", error);
 			alert("Si è verificato un errore durante la creazione del contatto.");
 		}
 	};
 
+	const nav = useNavigate();
+	//route for home page
+	const gotoHome = () => {
+		nav("/");
+	};
+
 	return (
 		<Container>
+			<h2 className="p-2 m-1" onClick={gotoHome}>
+				<JournalText />
+			</h2>
 			<div className="d-flex justify-content-center align-items-center my-4 pt-2">
 				<h2>Crea nuovo contatto</h2>
 			</div>

@@ -5,6 +5,8 @@ import CreateContactForm from "./components/CreateContactForm";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
+import EditContactForm from "./components/EditContactForm";
+import { updateContatto } from "./api/contacts";
 function App() {
 	return (
 		<BrowserRouter>
@@ -13,7 +15,10 @@ function App() {
 			<Routes>
 				<Route path="/" element={<ContactsTable />} />
 				<Route path="/nuova" element={<CreateContactForm />} />
-				<Route path="/modifica" element={<h1>modifica</h1>} />
+				<Route
+					path="/modifica"
+					element={<EditContactForm contatto={updateContatto} />}
+				/>
 			</Routes>
 		</BrowserRouter>
 	);
