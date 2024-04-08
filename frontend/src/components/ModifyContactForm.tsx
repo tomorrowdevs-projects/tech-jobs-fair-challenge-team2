@@ -28,6 +28,7 @@ const ModifyContactForm = () => {
 		try {
 			await updateContatto(parseInt(contactId), contatto);
 			alert("Contatto aggiornato con successo!");
+			nav("/");
 		} catch (error) {
 			console.error("Errore durante la creazione del contatto:", error);
 			alert("Si è verificato un errore durante la creazione del contatto.");
