@@ -5,57 +5,59 @@ import { deleteContatto } from "../api/contacts";
 import { useNavigate } from "react-router-dom";
 import { PlusCircleFill } from "react-bootstrap-icons";
 import ContactCard from "./ContactCard";
+import LoginSignup from "./LoginSignup";
 
 const ContactsTable = () => {
-	const { contatti } = useContatti();
-	const navigate = useNavigate();
-	const [searchTerm, setSearchTerm] = useState("");
+  const { contatti } = useContatti();
+  const navigate = useNavigate();
+  const [searchTerm, setSearchTerm] = useState("");
 
-	const filteredContacts = contatti.filter(
-		contact =>
-			contact.nome.toLowerCase().includes(searchTerm.toLowerCase()) ||
-			contact.cognome.toLowerCase().includes(searchTerm.toLowerCase()) ||
-			contact.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-			contact.telefono.includes(searchTerm) ||
-			contact.azienda.toLowerCase().includes(searchTerm.toLowerCase()) ||
-			contact.tipo.toLowerCase().includes(searchTerm.toLowerCase())
-	);
+  const filteredContacts = contatti.filter(
+    (contact) =>
+      contact.nome.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      contact.cognome.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      contact.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      contact.telefono.includes(searchTerm) ||
+      contact.azienda.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      contact.tipo.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
-	const handleSearchChange = event => {
-		setSearchTerm(event.target.value);
-	};
+  const handleSearchChange = (event) => {
+    setSearchTerm(event.target.value);
+  };
 
-	const gotoEdit = contact => {
-		navigate(`/modifica/${contact.id}`);
-	};
+  const gotoEdit = (contact) => {
+    navigate(`/modifica/${contact.id}`);
+  };
 
-	return (
-		<Container>
-			<div
-				className="d-flex justify-content-center align-items-center my-4 pt-2"
-				style={{ gap: 24 }}
-			>
-				<h2>Rubrica telefonica aziendale</h2>
-				<button
-					className="btn btn-outline-success"
-					onClick={() => {
-						navigate(`/nuova`);
-					}}
-				>
-					<PlusCircleFill />
-				</button>
-			</div>
-			<div className="my-3">
-				<input
-					type="text"
-					placeholder="Cerca contatto..."
-					value={searchTerm}
-					onChange={handleSearchChange}
-					className="form-control"
-				/>
-			</div>
-			<div>
-				{/* <div className="table-responsive">
+  if (localStorage.getItem("sb-ftgwvpuqwdqgicyqqncn-auth-token")) {
+    return (
+      <Container>
+        <div
+          className="d-flex justify-content-center align-items-center my-4 pt-2"
+          style={{ gap: 24 }}
+        >
+          <h2>Rubrica telefonica aziendale</h2>
+          <button
+            className="btn btn-outline-success"
+            onClick={() => {
+              navigate(`/nuova`);
+            }}
+          >
+            <PlusCircleFill />
+          </button>
+        </div>
+        <div className="my-3">
+          <input
+            type="text"
+            placeholder="Cerca contatto..."
+            value={searchTerm}
+            onChange={handleSearchChange}
+            className="form-control"
+          />
+        </div>
+        <div>
+          {/* <div className="table-responsive">
 					<table className="table table-sm table-striped w-100">
 						<thead>
 							<tr>
@@ -114,22 +116,25 @@ const ContactsTable = () => {
 						</tbody>
 					</table>
 				</div> */}
-				<Row /* xs={1} md={2} lg={3} className="g-4" */>
-					<ul>
-						{filteredContacts.map(contact => (
-							<Col key={contact.id}>
-								<ContactCard
-									contact={contact}
-									onDelete={() => deleteContatto(contact.id)}
-									onEdit={gotoEdit}
-								/>
-							</Col>
-						))}
-					</ul>
-				</Row>
-			</div>
-		</Container>
-	);
+          <Row /* xs={1} md={2} lg={3} className="g-4" */>
+            <ul>
+              {filteredContacts.map((contact) => (
+                <Col key={contact.id}>
+                  <ContactCard
+                    contact={contact}
+                    onDelete={() => deleteContatto(contact.id)}
+                    onEdit={gotoEdit}
+                  />
+                </Col>
+              ))}
+            </ul>
+          </Row>
+        </div>
+      </Container>
+    );
+  } else {
+    return <LoginSignup />;
+  }
 };
 
 export default ContactsTable;

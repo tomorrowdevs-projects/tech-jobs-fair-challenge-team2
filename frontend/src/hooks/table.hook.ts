@@ -5,6 +5,7 @@ import { supabase, supabaseLive } from "../supabase";
 
 export function useContatti() {
   const [contatti, setContatti] = useState<Contact[]>([]);
+  
   const fetchContatti = async () => {
     const data = await getContatti();
 
@@ -13,14 +14,13 @@ export function useContatti() {
 
   useEffect(() => {
     fetchContatti();
-    //todo gestire il real time sulla tabella
     const subscription = supabaseLive
       .channel("contatti_channel")
       .on(
         "postgres_changes",
         { event: "*", schema: "public", table: "Contatti" },
         (payload) => {
-          console.log("Change detected:", payload);
+          // console.log("Change detected:", payload);
           fetchContatti();
         }
       )

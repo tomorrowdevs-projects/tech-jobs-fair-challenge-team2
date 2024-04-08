@@ -7,19 +7,21 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 import ModifyContactForm from "./components/ModifyContactForm";
 import Footer from "./components/Footer";
-function App() {
-	return (
-		<BrowserRouter>
-			<Header />
 
-			<Routes>
-				<Route path="/" element={<ContactsTable />} />
-				<Route path="/nuova" element={<CreateContactForm />} />
-				<Route path="/modifica/:contactId" element={<ModifyContactForm />} />
-			</Routes>
-			<Footer />
-		</BrowserRouter>
-	);
+function App() {
+  return (
+    <BrowserRouter>
+      <Header />
+
+      <Routes>
+        <Route path="/" element={<ContactsTable />} />
+        <Route path="/nuova" element={<CreateContactForm />} />
+        <Route path="/modifica/:contactId" element={<ModifyContactForm />} />
+      </Routes>
+
+      <Footer />
+    </BrowserRouter>
+  );
 }
 
 export default App;
