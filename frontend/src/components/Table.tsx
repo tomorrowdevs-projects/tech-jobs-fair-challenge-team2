@@ -4,6 +4,7 @@ import { useContatti } from "../hooks/table.hook";
 import { deleteContatto } from "../api/contacts";
 import { useNavigate } from "react-router-dom";
 import { PlusCircleFill } from "react-bootstrap-icons";
+import ContactCard from "./ContactCard";
 
 const ContactsTable = () => {
 	const { contatti } = useContatti();
@@ -53,65 +54,79 @@ const ContactsTable = () => {
 					className="form-control"
 				/>
 			</div>
-			<div className="table-responsive">
-				<table className="table table-sm table-striped w-100">
-					<thead>
-						<tr>
-							<th scope="col">#</th>
-							<th scope="col">Nome</th>
-							<th scope="col">Cognome</th>
-							<th scope="col">E-mail</th>
-							<th scope="col">Telefono</th>
-							<th scope="col">Azienda</th>
-							<th scope="col">Link</th>
-							<th scope="col">Tipo di contatto</th>
-							<th scope="col">Azioni</th>
-						</tr>
-					</thead>
-					<tbody>
-						{filteredContacts.map(contact => (
-							<tr key={contact.id}>
-								<td>{contact.id}</td>
-								<td>{contact.nome}</td>
-								<td>{contact.cognome}</td>
-								<td>{contact.email}</td>
-								<td>{contact.telefono}</td>
-								<td>{contact.azienda}</td>
-								<td>{contact.link}</td>
-								<td>{contact.tipo}</td>
-								<td>
-									<Container>
-										<Row>
-											<Col>
-												<div style={{ display: "flex", gap: 8 }}>
-													<button
-														type="button"
-														className="btn btn-sm btn-outline-primary"
-														aria-label={`modifica il contatto di ${contact.nome} dell'azienda ${contact.azienda}`}
-														onClick={() => {
-															/* navigate(`/modifica/${contact.id}`); */
-															gotoEdit(contact);
-														}}
-													>
-														<i className="bi bi-pencil-fill"></i>
-													</button>
-													<button
-														type="button"
-														className="btn btn-sm btn-outline-danger"
-														aria-label={`elimina il contatto di ${contact.nome} dell'azienda ${contact.azienda}`}
-														onClick={() => deleteContatto(contact.id)}
-													>
-														<i className="bi bi-trash3-fill" />
-													</button>
-												</div>
-											</Col>
-										</Row>
-									</Container>
-								</td>
+			<div>
+				{/* <div className="table-responsive">
+					<table className="table table-sm table-striped w-100">
+						<thead>
+							<tr>
+								<th scope="col">#</th>
+								<th scope="col">Nome</th>
+								<th scope="col">Cognome</th>
+								<th scope="col">E-mail</th>
+								<th scope="col">Telefono</th>
+								<th scope="col">Azienda</th>
+								<th scope="col">Link</th>
+								<th scope="col">Tipo di contatto</th>
+								<th scope="col">Azioni</th>
 							</tr>
+						</thead>
+						<tbody>
+							{filteredContacts.map(contact => (
+								<tr key={contact.id}>
+									<td>{contact.id}</td>
+									<td>{contact.nome}</td>
+									<td>{contact.cognome}</td>
+									<td>{contact.email}</td>
+									<td>{contact.telefono}</td>
+									<td>{contact.azienda}</td>
+									<td>{contact.link}</td>
+									<td>{contact.tipo}</td>
+									<td>
+										<Container>
+											<Row>
+												<Col>
+													<div style={{ display: "flex", gap: 8 }}>
+														<button
+															type="button"
+															className="btn btn-sm btn-outline-primary"
+															aria-label={`modifica il contatto di ${contact.nome} dell'azienda ${contact.azienda}`}
+															onClick={() => {
+																gotoEdit(contact);
+															}}
+														>
+															<i className="bi bi-pencil-fill"></i>
+														</button>
+														<button
+															type="button"
+															className="btn btn-sm btn-outline-danger"
+															aria-label={`elimina il contatto di ${contact.nome} dell'azienda ${contact.azienda}`}
+															onClick={() => deleteContatto(contact.id)}
+														>
+															<i className="bi bi-trash3-fill" />
+														</button>
+													</div>
+												</Col>
+											</Row>
+										</Container>
+									</td>
+								</tr>
+							))}
+						</tbody>
+					</table>
+				</div> */}
+				<Row /* xs={1} md={2} lg={3} className="g-4" */>
+					<ul>
+						{filteredContacts.map(contact => (
+							<Col key={contact.id}>
+								<ContactCard
+									contact={contact}
+									onDelete={() => deleteContatto(contact.id)}
+									onEdit={gotoEdit}
+								/>
+							</Col>
 						))}
-					</tbody>
-				</table>
+					</ul>
+				</Row>
 			</div>
 		</Container>
 	);

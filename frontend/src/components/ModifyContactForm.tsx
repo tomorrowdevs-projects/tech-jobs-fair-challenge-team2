@@ -23,16 +23,17 @@ const ModifyContactForm = () => {
     }));
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      await updateContatto(parseInt(contactId), contatto);
-      alert("Contatto aggiornato con successo!");
-    } catch (error) {
-      console.error("Errore durante la creazione del contatto:", error);
-      alert("Si è verificato un errore durante la creazione del contatto.");
-    }
-  };
+	const handleSubmit = async e => {
+		e.preventDefault();
+		try {
+			await updateContatto(parseInt(contactId), contatto);
+			alert("Contatto aggiornato con successo!");
+			nav("/");
+		} catch (error) {
+			console.error("Errore durante la creazione del contatto:", error);
+			alert("Si è verificato un errore durante la creazione del contatto.");
+		}
+	};
 
   const nav = useNavigate();
   //route for home page
