@@ -4,7 +4,7 @@ import { getContatti, updateContatto } from "../api/contacts";
 import { useNavigate, useParams } from "react-router-dom";
 import { HouseFill } from "react-bootstrap-icons";
 
-const ModifyContactForm = () => {
+const Signup = () => {
   const { contactId } = useParams();
   const [contatto, setContatto] = useState({
     nome: "",
@@ -148,4 +148,4 @@ const ModifyContactForm = () => {
   );
 };
 
-export default ModifyContactForm;
+export default Signup;
