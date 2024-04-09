@@ -23,6 +23,7 @@ const LoginSignup = () => {
   }, []);
 
   const redirect = () => {
+    window.location.reload();
     nav("/");
   };
 

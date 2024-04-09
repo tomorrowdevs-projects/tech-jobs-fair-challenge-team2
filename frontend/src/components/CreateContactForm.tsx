@@ -46,7 +46,6 @@ const CreateContactForm = () => {
         );
       }
       const result = await createContatto(contatto);
-    //   console.log(result);
 
       if (result === "") {
         alert("Contatto creato con successo!");

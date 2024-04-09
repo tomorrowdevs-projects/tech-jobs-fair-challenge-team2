@@ -5,7 +5,7 @@ import { supabase, supabaseLive } from "../supabase";
 
 export function useContatti() {
   const [contatti, setContatti] = useState<Contact[]>([]);
-  
+
   const fetchContatti = async () => {
     const data = await getContatti();
 
@@ -20,7 +20,6 @@ export function useContatti() {
         "postgres_changes",
         { event: "*", schema: "public", table: "Contatti" },
         (payload) => {
-          // console.log("Change detected:", payload);
           fetchContatti();
         }
       )
