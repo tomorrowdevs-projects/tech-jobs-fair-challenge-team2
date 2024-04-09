@@ -1,6 +1,7 @@
 import { Card, Container } from "react-bootstrap";
+import { Contact, OnDeleteFunction, OnEditFunction } from "../models";
 
-const ContactCard = ({ contact, onDelete, onEdit }) => {
+const ContactCard = ({ contact, onDelete, onEdit } : {contact: Contact, onEdit: OnEditFunction, onDelete: OnDeleteFunction }) => {
   return (
     <Container className=" border border-warning rounded my-3 p-4 bg-white">
       <Card.Body className="d-flex flex-column align-items-start">

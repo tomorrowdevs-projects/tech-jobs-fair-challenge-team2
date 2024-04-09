@@ -21,6 +21,7 @@ export function useContatti() {
         { event: "*", schema: "public", table: "Contatti" },
         (payload) => {
           fetchContatti();
+          return payload;
         }
       )
       .subscribe();

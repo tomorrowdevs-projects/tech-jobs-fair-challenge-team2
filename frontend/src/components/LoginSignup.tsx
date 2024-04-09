@@ -3,9 +3,11 @@ import { useNavigate } from "react-router-dom";
 import { supabaseAuth } from "../supabase";
 import { Auth } from "@supabase/auth-ui-react";
 import { ThemeSupa } from "@supabase/auth-ui-shared";
+import { Session } from '@supabase/supabase-js'
 
 const LoginSignup = () => {
-  const [session, setSession] = useState(null);
+  type SessionState = Session | null;
+  const [session, setSession] = useState<SessionState>(null);
   const nav = useNavigate();
 
   useEffect(() => {

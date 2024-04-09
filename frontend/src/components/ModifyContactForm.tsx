@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { Form, Button, Container } from "react-bootstrap";
 import { getContatti, updateContatto } from "../api/contacts";
 import { useNavigate, useParams } from "react-router-dom";
 import { HouseFill } from "react-bootstrap-icons";
+import { Contact } from "../models";
 
 const ModifyContactForm = () => {
   const { contactId } = useParams();
@@ -10,12 +11,13 @@ const ModifyContactForm = () => {
     nome: "",
     cognome: "",
     telefono: "",
+    email: "",
     azienda: "",
     link: "",
     tipo: "",
   });
 
-  const handleChange = (e) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setContatto((prevContatto) => ({
       ...prevContatto,
@@ -23,10 +25,10 @@ const ModifyContactForm = () => {
     }));
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     try {
-      await updateContatto(parseInt(contactId), contatto);
+      await updateContatto(Number(contactId), contatto);
       alert("Contatto aggiornato con successo!");
       nav("/");
     } catch (error) {
@@ -49,7 +51,7 @@ const ModifyContactForm = () => {
 
         // Trova il contatto desiderato utilizzando l'ID
         const contattoFiltrato = contatti.find(
-          (contatto) => contatto.id === parseInt(contactId)
+          (contatto: Contact) => contatto.id === Number(contactId)
         );
 
         // Imposta il contatto filtrato nello stato

@@ -1,3 +1,4 @@
+
 export interface Contact {
   id?: number;
   nome: string;
@@ -8,3 +9,6 @@ export interface Contact {
   link: string;
   tipo: string;
 }
+
+export type OnEditFunction = (contact: Contact) => void;
+export type OnDeleteFunction = (contactId?: number) => void;

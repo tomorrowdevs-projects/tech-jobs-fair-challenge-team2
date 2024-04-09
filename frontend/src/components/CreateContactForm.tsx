@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import { Form, Button, Container } from "react-bootstrap";
 import { HouseFill } from "react-bootstrap-icons";
 
 import { createContatto, getContatti } from "../api/contacts";
 import { useNavigate } from "react-router-dom";
+import { Contact } from "../models";
 
 const CreateContactForm = () => {
   const [contatto, setContatto] = useState({
@@ -16,7 +17,7 @@ const CreateContactForm = () => {
     tipo: "",
   });
 
-  const handleChange = (e) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setContatto((prevContatto) => ({
       ...prevContatto,
@@ -24,15 +25,15 @@ const CreateContactForm = () => {
     }));
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     try {
       const contatti = await getContatti();
       const emailAlreadyExists = contatti.some(
-        (contact) => contact.email === contatto.email
+        (contact: Contact) => contact.email === contatto.email
       );
       const numberAlreadyExists = contatti.some(
-        (contact) => contact.telefono === contatto.telefono
+        (contact: Contact) => contact.telefono === contatto.telefono
       );
 
       if (emailAlreadyExists) {

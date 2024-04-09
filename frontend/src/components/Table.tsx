@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { useContatti } from "../hooks/table.hook";
 import { deleteContatto } from "../api/contacts";
@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { PlusCircleFill } from "react-bootstrap-icons";
 import ContactCard from "./ContactCard";
 import LoginSignup from "./LoginSignup";
+import { Contact } from "../models";
 
 const ContactsTable = () => {
   const { contatti } = useContatti();
@@ -22,11 +23,11 @@ const ContactsTable = () => {
       contact.tipo.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  const handleSearchChange = (event) => {
+  const handleSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
   };
 
-  const gotoEdit = (contact) => {
+  const gotoEdit = (contact: Contact) => {
     navigate(`/modifica/${contact.id}`);
   };
 
@@ -63,7 +64,7 @@ const ContactsTable = () => {
                 <Col key={contact.id}>
                   <ContactCard
                     contact={contact}
-                    onDelete={() => deleteContatto(contact.id)}
+                    onDelete={() => deleteContatto(Number(contact.id))}
                     onEdit={gotoEdit}
                   />
                 </Col>
